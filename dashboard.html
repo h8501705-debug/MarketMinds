@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MarketMinds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0b0e;
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        /* Animated Grid Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(99, 102, 241, 0.15);
+            top: -250px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(16, 185, 129, 0.1);
+            bottom: -200px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-50px) scale(1.1); }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(10, 11, 14, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #e5e7eb;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .nav-link.active {
+            color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: rgba(26, 28, 35, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #6366f1, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            color: #9ca3af;
+        }
+
+        .create-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px #6366f1;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(26, 28, 35, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(26, 28, 35, 0.7);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            color: #e5e7eb;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        /* Watchlists Grid */
+        .watchlists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .watchlist-card {
+            background: rgba(26, 28, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .watchlist-card:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .watchlist-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .watchlist-badge {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .watchlist-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .watchlist-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .view-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .view-btn:hover {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .edit-btn {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .edit-btn:hover {
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(26, 28, 35, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: #e5e7eb;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e5e7eb;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(10, 11, 14, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 8px;
+            color: #e5e7eb;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            font-family: monospace;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .file-upload {
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: #6366f1;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .save-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            border-radius: 8px;
+            color: #ef4444;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem;
+            background: rgba(26, 28, 35, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #e5e7eb;
+        }
+
+        .empty-state p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">MarketMinds</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="header-title">
+                <h1>My Watchlists</h1>
+                <p>Manage your stock watchlists • 7,000+ Indian stocks available</p>
+            </div>
+            <button class="create-btn" onclick="openCreateModal()">+ Create New Watchlist</button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Watchlists</div>
+                <div class="stat-value" id="totalWatchlists">5</div>
+                <div class="stat-change">↑ 2 this week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Stocks</div>
+                <div class="stat-value" id="totalStocks">1,401</div>
+                <div class="stat-change">From 7,000+ database</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Default Watchlist</div>
+                <div class="stat-value" id="defaultWatchlist">1</div>
+                <div class="stat-change">NIFTY 50</div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchWatchlists" placeholder="Search watchlists by name or symbol...">
+        </div>
+
+        <!-- Watchlists Grid -->
+        <div id="watchlistsContainer" class="watchlists-grid">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Create/Edit Modal -->
+    <div id="watchlistModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create New Watchlist</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="form-group">
+                <label>Watchlist Name</label>
+                <input type="text" id="watchlistName" placeholder="e.g., Breakout Stocks, Swing Trades">
+            </div>
+            <div class="form-group">
+                <label>Add Stocks (one per line)</label>
+                <textarea id="stockSymbols" placeholder="RELIANCE&#10;TCS&#10;INFY&#10;HDFCBANK"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Or Upload CSV File</label>
+                <div class="file-upload" onclick="document.getElementById('csvFile').click()">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📁</div>
+                    <div>Click to upload CSV</div>
+                    <input type="file" id="csvFile" accept=".csv" style="display: none;" onchange="handleFileUpload(event)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="save-btn" onclick="saveWatchlist()">Save Watchlist</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 MarketMinds. 7,000+ Indian stocks at your fingertips.</p>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
