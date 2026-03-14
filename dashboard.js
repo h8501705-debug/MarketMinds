@@ -4,7 +4,7 @@ let currentEditId = null;
 
 // Load watchlists from localStorage
 function loadWatchlists() {
-    const saved = localStorage.getItem('marketminds_watchlists');
+    const saved = localStorage.getItem('pulsequant_watchlists');
     if (saved) {
         watchlists = JSON.parse(saved);
     } else {
@@ -49,23 +49,11 @@ function loadWatchlists() {
         saveWatchlists();
     }
     renderWatchlists();
-    updateStats();
 }
 
 // Save watchlists to localStorage
 function saveWatchlists() {
-    localStorage.setItem('marketminds_watchlists', JSON.stringify(watchlists));
-}
-
-// Update statistics
-function updateStats() {
-    const totalWatchlists = watchlists.length;
-    const totalStocks = watchlists.reduce((acc, w) => acc + w.stocks.length, 0);
-    const defaultWatchlist = watchlists.find(w => w.isDefault)?.name || 'None';
-    
-    document.getElementById('totalWatchlists').textContent = totalWatchlists;
-    document.getElementById('totalStocks').textContent = totalStocks;
-    document.getElementById('defaultWatchlist').textContent = defaultWatchlist;
+    localStorage.setItem('pulsequant_watchlists', JSON.stringify(watchlists));
 }
 
 // Render all watchlists
@@ -169,7 +157,6 @@ function deleteWatchlist(id) {
         watchlists = watchlists.filter(w => w.id !== id);
         saveWatchlists();
         renderWatchlists();
-        updateStats();
     }
 }
 
@@ -231,7 +218,6 @@ function saveWatchlist() {
     
     saveWatchlists();
     renderWatchlists();
-    updateStats();
     closeModal();
 }
 
