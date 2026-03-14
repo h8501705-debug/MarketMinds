@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketMinds - Indian Stock Analysis Platform</title>
+    <title>PulseQuant - AI Trading Analytics</title>
     <style>
         * {
             margin: 0;
@@ -13,8 +13,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0b0e;
-            color: #e5e7eb;
+            background: #0A0A0F;
+            color: #EAEAF0;
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
@@ -28,8 +28,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(123, 92, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: -2;
         }
@@ -46,7 +46,7 @@
         .orb-1 {
             width: 500px;
             height: 500px;
-            background: rgba(99, 102, 241, 0.15);
+            background: rgba(0, 229, 255, 0.1);
             top: -250px;
             right: -100px;
             animation-delay: 0s;
@@ -55,7 +55,7 @@
         .orb-2 {
             width: 400px;
             height: 400px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(123, 92, 255, 0.08);
             bottom: -200px;
             left: -100px;
             animation-delay: -5s;
@@ -64,7 +64,7 @@
         .orb-3 {
             width: 300px;
             height: 300px;
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(201, 75, 255, 0.06);
             bottom: 50%;
             right: 20%;
             animation-delay: -10s;
@@ -77,9 +77,9 @@
 
         /* Navigation */
         .navbar {
-            background: rgba(10, 11, 14, 0.8);
+            background: rgba(10, 10, 15, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
             padding: 1rem 2rem;
             position: sticky;
             top: 0;
@@ -97,7 +97,7 @@
         .logo {
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #6366f1, #10b981);
+            background: linear-gradient(135deg, #00E5FF, #7B5CFF, #C94BFF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
@@ -111,7 +111,7 @@
         }
 
         .nav-link {
-            color: #9ca3af;
+            color: #9AA0A6;
             text-decoration: none;
             font-weight: 500;
             padding: 0.6rem 1.2rem;
@@ -121,20 +121,20 @@
         }
 
         .nav-link:hover {
-            color: #e5e7eb;
-            background: rgba(99, 102, 241, 0.1);
-            border-color: rgba(99, 102, 241, 0.3);
+            color: #EAEAF0;
+            background: rgba(0, 229, 255, 0.1);
+            border-color: rgba(0, 229, 255, 0.3);
         }
 
         .nav-link.active {
-            color: #6366f1;
-            background: rgba(99, 102, 241, 0.1);
-            border-color: rgba(99, 102, 241, 0.3);
+            color: #00E5FF;
+            background: rgba(0, 229, 255, 0.1);
+            border-color: rgba(0, 229, 255, 0.3);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white !important;
+            background: linear-gradient(135deg, #00E5FF, #7B5CFF);
+            color: #0A0A0F !important;
             border: none;
             padding: 0.6rem 1.5rem;
             border-radius: 8px;
@@ -144,8 +144,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px #6366f1;
-            background: linear-gradient(135deg, #4f52e6, #7c4df0);
+            box-shadow: 0 10px 20px -10px #00E5FF;
         }
 
         /* Hero Section */
@@ -166,9 +165,9 @@
 
         .hero-badge {
             display: inline-block;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #6366f1;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(123, 92, 255, 0.3);
+            color: #00E5FF;
             padding: 0.5rem 1.5rem;
             border-radius: 50px;
             font-size: 0.9rem;
@@ -177,11 +176,17 @@
             backdrop-filter: blur(5px);
         }
 
+        .hero-logo {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.3));
+        }
+
         .hero h1 {
-            font-size: 4.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            background: linear-gradient(135deg, #ffffff, #9ca3af, #6366f1);
+            background: linear-gradient(135deg, #00E5FF, #7B5CFF, #C94BFF);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradient 8s ease infinite;
@@ -195,45 +200,20 @@
 
         .hero p {
             font-size: 1.3rem;
-            color: #9ca3af;
+            color: #9AA0A6;
             margin-bottom: 2.5rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #6366f1;
-            display: block;
-        }
-
-        .stat-label {
-            color: #9ca3af;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         /* Features Section */
         .features {
             padding: 5rem 2rem;
-            background: rgba(26, 28, 35, 0.5);
+            background: rgba(17, 17, 24, 0.5);
             backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            border-top: 1px solid rgba(0, 229, 255, 0.2);
+            border-bottom: 1px solid rgba(123, 92, 255, 0.2);
         }
 
         .features-container {
@@ -245,18 +225,19 @@
         }
 
         .feature-card {
-            background: rgba(26, 28, 35, 0.7);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(17, 17, 24, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.2);
             border-radius: 16px;
             padding: 2rem;
             transition: all 0.3s;
             backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: #6366f1;
-            box-shadow: 0 20px 30px -15px rgba(99, 102, 241, 0.3);
+            border-color: #00E5FF;
+            box-shadow: 0 20px 30px -15px rgba(0, 229, 255, 0.3);
         }
 
         .feature-icon {
@@ -264,18 +245,19 @@
             margin-bottom: 1.5rem;
             display: inline-block;
             padding: 1rem;
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(123, 92, 255, 0.1);
             border-radius: 12px;
+            color: #00E5FF;
         }
 
         .feature-card h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: #e5e7eb;
+            color: #EAEAF0;
         }
 
         .feature-card p {
-            color: #9ca3af;
+            color: #9AA0A6;
             line-height: 1.6;
         }
 
@@ -293,11 +275,11 @@
         .cta-container h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #e5e7eb;
+            color: #EAEAF0;
         }
 
         .cta-container p {
-            color: #9ca3af;
+            color: #9AA0A6;
             margin-bottom: 2rem;
             font-size: 1.1rem;
         }
@@ -310,8 +292,8 @@
 
         .btn-secondary {
             background: transparent;
-            color: #e5e7eb;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #EAEAF0;
+            border: 1px solid rgba(123, 92, 255, 0.3);
             padding: 0.8rem 2rem;
             border-radius: 8px;
             font-weight: 600;
@@ -320,16 +302,16 @@
         }
 
         .btn-secondary:hover {
-            border-color: #6366f1;
-            background: rgba(99, 102, 241, 0.1);
+            border-color: #00E5FF;
+            background: rgba(0, 229, 255, 0.1);
         }
 
         /* Footer */
         .footer {
             padding: 2rem;
             text-align: center;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
-            color: #9ca3af;
+            border-top: 1px solid rgba(0, 229, 255, 0.2);
+            color: #9AA0A6;
         }
 
         /* Responsive */
@@ -340,11 +322,6 @@
             
             .hero p {
                 font-size: 1.1rem;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 1.5rem;
             }
             
             .nav-links {
@@ -367,7 +344,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">MarketMinds</a>
+            <a href="index.html" class="logo">PulseQuant</a>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="dashboard.html" class="nav-link">Dashboard</a>
@@ -380,23 +357,16 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-badge">⚡ India's Fastest Growing Stock Analysis Platform</div>
-            <h1>Master the Market with MarketMinds</h1>
-            <p>Professional-grade stock charts, multiple watchlists, and real-time data for Indian markets. All free, all in one place.</p>
+            <div class="hero-badge">⚡ Next-Gen AI Trading Analytics</div>
+            <div class="hero-logo">
+                <img src="logo.svg" alt="PulseQuant Logo" style="width: 100%; height: auto;">
+            </div>
+            <h1>Trade Smarter with AI</h1>
+            <p>Professional-grade stock charts, real-time data, and intelligent analytics for the modern trader.</p>
             
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">7,000+</span>
-                    <span class="stat-label">Stocks Covered</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">25</span>
-                    <span class="stat-label">Watchlists</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">500</span>
-                    <span class="stat-label">Stocks per List</span>
-                </div>
+            <div class="cta-buttons" style="margin-top: 2rem;">
+                <a href="dashboard.html" class="btn-primary">Start Trading</a>
+                <a href="contact.html" class="btn-secondary">Learn More</a>
             </div>
         </div>
     </section>
@@ -406,33 +376,33 @@
         <div class="features-container">
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>TradingView Charts</h3>
-                <p>Professional candlestick and line charts with 1-year default view. Switch between chart types with one click.</p>
+                <h3>AI-Powered Charts</h3>
+                <p>Advanced candlestick and line charts with intelligent pattern recognition.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📋</div>
-                <h3>Multiple Watchlists</h3>
-                <p>Create up to 25 watchlists with 500+ stocks each. Import via CSV or add manually with smart search.</p>
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Data</h3>
+                <p>Live market data for 7,000+ Indian stocks with sub-second updates.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔍</div>
-                <h3>Smart Search</h3>
-                <p>Search from 7,000+ Indian stocks with auto-complete. Get real-time suggestions as you type.</p>
+                <div class="feature-icon">🎯</div>
+                <h3>Smart Watchlists</h3>
+                <p>Create multiple watchlists with intelligent sorting and filtering.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔄</div>
-                <h3>Easy Navigation</h3>
-                <p>Previous/Next buttons to quickly move through watchlist stocks. Keyboard shortcuts supported.</p>
+                <h3>Quick Navigation</h3>
+                <p>Seamless movement between stocks with keyboard shortcuts.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📈</div>
-                <h3>Line Chart Default</h3>
-                <p>Line charts by default for faster loading. Switch to candlestick when you need detailed analysis.</p>
+                <h3>1-Year Default View</h3>
+                <p>Optimized charts with perfect balance of detail and performance.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💾</div>
-                <h3>Local Storage</h3>
-                <p>All your watchlists saved in your browser. No account needed, no data sharing.</p>
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p>All data stored locally. No accounts, no tracking.</p>
             </div>
         </div>
     </section>
@@ -440,18 +410,17 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-container">
-            <h2>Ready to start trading smarter?</h2>
-            <p>Join thousands of traders using MarketMinds for their daily market analysis. No registration, completely free.</p>
+            <h2>Ready to elevate your trading?</h2>
+            <p>Join thousands of traders using PulseQuant for market analysis. No registration, completely free.</p>
             <div class="cta-buttons">
-                <a href="dashboard.html" class="btn-primary">Go to Dashboard</a>
-                <a href="contact.html" class="btn-secondary">Learn More</a>
+                <a href="dashboard.html" class="btn-primary">Launch Dashboard</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 MarketMinds. All rights reserved. Made for Indian traders.</p>
+        <p>© 2024 PulseQuant. AI-powered trading analytics for the modern era.</p>
     </footer>
 </body>
 </html>
